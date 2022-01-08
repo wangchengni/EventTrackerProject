@@ -78,36 +78,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `condition`
+-- Table `snow_condition`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `condition` ;
+DROP TABLE IF EXISTS `snow_condition` ;
 
-CREATE TABLE IF NOT EXISTS `condition` (
+CREATE TABLE IF NOT EXISTS `snow_condition` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(45) NOT NULL,
+  `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `route_condition`
+-- Table `snow_condition_route`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `route_condition` ;
+DROP TABLE IF EXISTS `snow_condition_route` ;
 
-CREATE TABLE IF NOT EXISTS `route_condition` (
+CREATE TABLE IF NOT EXISTS `snow_condition_route` (
+  `snow_condition_id` INT NOT NULL,
   `route_id` INT NOT NULL,
-  `condition_id` INT NOT NULL,
-  PRIMARY KEY (`route_id`, `condition_id`),
-  INDEX `fk_route_has_condition_condition1_idx` (`condition_id` ASC),
-  INDEX `fk_route_has_condition_route1_idx` (`route_id` ASC),
-  CONSTRAINT `fk_route_has_condition_route1`
-    FOREIGN KEY (`route_id`)
-    REFERENCES `route` (`id`)
+  PRIMARY KEY (`snow_condition_id`, `route_id`),
+  INDEX `fk_snow_condition_has_route_route1_idx` (`route_id` ASC),
+  INDEX `fk_snow_condition_has_route_snow_condition1_idx` (`snow_condition_id` ASC),
+  CONSTRAINT `fk_snow_condition_has_route_snow_condition1`
+    FOREIGN KEY (`snow_condition_id`)
+    REFERENCES `snow_condition` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_route_has_condition_condition1`
-    FOREIGN KEY (`condition_id`)
-    REFERENCES `condition` (`id`)
+  CONSTRAINT `fk_snow_condition_has_route_route1`
+    FOREIGN KEY (`route_id`)
+    REFERENCES `route` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -178,42 +178,42 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `condition`
+-- Data for table `snow_condition`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `skiroutedb`;
-INSERT INTO `condition` (`id`, `title`) VALUES (1, 'Icy');
-INSERT INTO `condition` (`id`, `title`) VALUES (2, 'Groomed');
-INSERT INTO `condition` (`id`, `title`) VALUES (3, 'Moguls');
-INSERT INTO `condition` (`id`, `title`) VALUES (4, 'slash');
-INSERT INTO `condition` (`id`, `title`) VALUES (5, 'Powder');
+INSERT INTO `snow_condition` (`id`, `title`) VALUES (1, 'Icy');
+INSERT INTO `snow_condition` (`id`, `title`) VALUES (2, 'Groomed');
+INSERT INTO `snow_condition` (`id`, `title`) VALUES (3, 'Moguls');
+INSERT INTO `snow_condition` (`id`, `title`) VALUES (4, 'Slash');
+INSERT INTO `snow_condition` (`id`, `title`) VALUES (5, 'Powder');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `route_condition`
+-- Data for table `snow_condition_route`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `skiroutedb`;
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (1, 1);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (2, 2);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (3, 3);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (4, 5);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (5, 4);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (6, 3);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (7, 2);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (8, 1);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (9, 2);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (10, 3);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (11, 4);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (12, 5);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (13, 2);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (14, 1);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (15, 4);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (16, 5);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (17, 2);
-INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (18, 1);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (1, 1);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 2);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 3);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 4);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 5);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 6);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 7);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 8);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 9);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 10);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 11);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 12);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 13);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 14);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 15);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 16);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 17);
+INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 18);
 
 COMMIT;
 

@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ConditionTest {
+class SnowConditionTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Condition condition;
+	private SnowCondition condition;
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("JPARoute");
@@ -30,7 +30,7 @@ class ConditionTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em=emf.createEntityManager();
-		condition =em.find(Condition.class, 2);
+		condition =em.find(SnowCondition.class, 1);
 	}
 
 	@AfterEach
@@ -44,11 +44,11 @@ class ConditionTest {
 		assertNotNull(condition);
 		assertEquals("Icy", condition.getTitle());
 	}
-//	@Test
-//	void test_Routs() {
-//		assertNotNull(condition);
-//		assertTrue(condition.getRoutes().size()>0);
-//	}
+	@Test
+	void test_Routs() {
+		assertNotNull(condition);
+		assertTrue(condition.getRoutes().size()>0);
+	}
 	
 
 }

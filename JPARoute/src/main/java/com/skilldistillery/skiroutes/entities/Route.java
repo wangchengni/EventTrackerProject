@@ -1,5 +1,6 @@
 package com.skilldistillery.skiroutes.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,13 +29,13 @@ public class Route {
 	@ManyToOne
 	@JoinColumn(name ="lift_id")
 	private Lift lift;
-//	@ManyToMany
-//	@JoinTable(
-//			name = "route_condition",
-//			joinColumns = @JoinColumn(name = "route_id"),
-//			inverseJoinColumns = @JoinColumn(name = "condition_id")
-//		)
-//	private List<Condition> conditions;
+	@ManyToMany
+	@JoinTable(
+			name = "snow_condition_route",
+			joinColumns = @JoinColumn(name = "route_id"),
+			inverseJoinColumns = @JoinColumn(name = "snow_condition_id")
+		)
+	private List<SnowCondition> snowConditions;
 //	
 	public Route() {
 		super();
@@ -75,12 +76,39 @@ public class Route {
 	public void setLift(Lift lift) {
 		this.lift = lift;
 	}
-//	public List<Condition> getConditions() {
-//		return conditions;
-//	}
-//	public void setConditions(List<Condition> conditions) {
-//		this.conditions = conditions;
-//	}
+	
+	public List<SnowCondition> getSnowConditions() {
+		return snowConditions;
+	}
+	public void setSnowConditions(List<SnowCondition> snowConditions) {
+		this.snowConditions = snowConditions;
+	}
+	public boolean addSnowConditions(SnowCondition snowCondition) {
+		if(snowConditions == null) {
+			snowConditions = new ArrayList<>();
+		}
+		boolean addedToList = false;
+		if(snowCondition != null) {
+			if(! snowConditions.contains(snowCondition)) {
+				addedToList = snowConditions.add(snowCondition);
+			}
+			if(! snowCondition.getRoutes().contains(this)) {
+				snowCondition.getRoutes().add(this);
+			}
+		}
+		return addedToList;
+	}
+	public boolean removeSnowCondition(SnowCondition snowCondition) {
+		boolean removed = false;
+		if(snowCondition != null && snowConditions.contains(snowCondition)) {
+			removed = snowConditions.remove(snowCondition);
+			
+		}
+		if(snowCondition.getRoutes().contains(this)) {
+			snowCondition.removeRoute(this);
+		}
+		return removed;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
