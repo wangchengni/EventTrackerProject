@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Peak {
 
@@ -18,9 +20,11 @@ public class Peak {
 	private String name;
 	private String elevation;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy ="peak")
 	private List<Route> routes;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy ="peak")
 	private List<Lift> lifts;
 	

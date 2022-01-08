@@ -55,10 +55,6 @@ class RouteTest {
 		assertNotNull(route);
 		assertEquals("Last Hoot", route.getName());
 	}
-	@Test
-	void test_Conditions() {
-		assertNotNull(route.getSnowConditions());
-		assertTrue(route.getSnowConditions().size()>0);
-	}
+	
 
 }

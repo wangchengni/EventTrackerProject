@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.skiroutes.services.LiftService;
 
-@RestController
-@RequestMapping("api")
+//@RestController
+//@RequestMapping("api")
 public class LiftController {
-	@Autowired
-	private LiftService liftSev;
+//	@Autowired
+//	private LiftService liftSev;
 
 }

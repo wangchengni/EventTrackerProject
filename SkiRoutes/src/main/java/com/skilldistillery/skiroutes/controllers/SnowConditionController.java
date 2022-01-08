@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.skiroutes.services.SnowConditionService;
 
-@RestController
-@RequestMapping("api")
+//@RestController
+//@RequestMapping("api")
 public class SnowConditionController {
 
-	@Autowired
-	private SnowConditionService snowConditionSev;
+//	@Autowired
+//	private SnowConditionService snowConditionSev;
 }

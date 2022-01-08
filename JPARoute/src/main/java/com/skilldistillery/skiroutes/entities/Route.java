@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Route {
 
@@ -20,8 +23,10 @@ public class Route {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private String distance;
+	private double distance;
 	private String level;
+	@Column(name="snow_condition")
+	private String snowCondition;
 	
 	@ManyToOne
 	@JoinColumn(name ="peak_id")
@@ -29,13 +34,13 @@ public class Route {
 	@ManyToOne
 	@JoinColumn(name ="lift_id")
 	private Lift lift;
-	@ManyToMany
-	@JoinTable(
-			name = "snow_condition_route",
-			joinColumns = @JoinColumn(name = "route_id"),
-			inverseJoinColumns = @JoinColumn(name = "snow_condition_id")
-		)
-	private List<SnowCondition> snowConditions;
+//	@ManyToMany
+//	@JoinTable(
+//			name = "snow_condition_route",
+//			joinColumns = @JoinColumn(name = "route_id"),
+//			inverseJoinColumns = @JoinColumn(name = "snow_condition_id")
+//		)
+//	private List<SnowCondition> snowConditions;
 //	
 	public Route() {
 		super();
@@ -52,10 +57,10 @@ public class Route {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDistance() {
+	public double getDistance() {
 		return distance;
 	}
-	public void setDistance(String distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 	public String getLevel() {
@@ -77,38 +82,46 @@ public class Route {
 		this.lift = lift;
 	}
 	
-	public List<SnowCondition> getSnowConditions() {
-		return snowConditions;
+	public String getSnowCondition() {
+		return snowCondition;
 	}
-	public void setSnowConditions(List<SnowCondition> snowConditions) {
-		this.snowConditions = snowConditions;
+	public void setSnowCondition(String snowCondition) {
+		this.snowCondition = snowCondition;
 	}
-	public boolean addSnowConditions(SnowCondition snowCondition) {
-		if(snowConditions == null) {
-			snowConditions = new ArrayList<>();
-		}
-		boolean addedToList = false;
-		if(snowCondition != null) {
-			if(! snowConditions.contains(snowCondition)) {
-				addedToList = snowConditions.add(snowCondition);
-			}
-			if(! snowCondition.getRoutes().contains(this)) {
-				snowCondition.getRoutes().add(this);
-			}
-		}
-		return addedToList;
-	}
-	public boolean removeSnowCondition(SnowCondition snowCondition) {
-		boolean removed = false;
-		if(snowCondition != null && snowConditions.contains(snowCondition)) {
-			removed = snowConditions.remove(snowCondition);
-			
-		}
-		if(snowCondition.getRoutes().contains(this)) {
-			snowCondition.removeRoute(this);
-		}
-		return removed;
-	}
+	//---------------------------- save for later
+//	public List<SnowCondition> getSnowConditions() {
+//		return snowConditions;
+//	}
+//	public void setSnowConditions(List<SnowCondition> snowConditions) {
+//		this.snowConditions = snowConditions;
+//	}
+//	public boolean addSnowConditions(SnowCondition snowCondition) {
+//		if(snowConditions == null) {
+//			snowConditions = new ArrayList<>();
+//		}
+//		boolean addedToList = false;
+//		if(snowCondition != null) {
+//			if(! snowConditions.contains(snowCondition)) {
+//				addedToList = snowConditions.add(snowCondition);
+//			}
+//			if(! snowCondition.getRoutes().contains(this)) {
+//				snowCondition.getRoutes().add(this);
+//			}
+//		}
+//		return addedToList;
+//	}
+//	public boolean removeSnowCondition(SnowCondition snowCondition) {
+//		boolean removed = false;
+//		if(snowCondition != null && snowConditions.contains(snowCondition)) {
+//			removed = snowConditions.remove(snowCondition);
+//			
+//		}
+//		if(snowCondition.getRoutes().contains(this)) {
+//			snowCondition.removeRoute(this);
+//		}
+//		return removed;
+//	}
+//	-----------------------Save for later
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Lift {
 	
@@ -26,6 +28,7 @@ public class Lift {
 	@ManyToOne
 	@JoinColumn(name ="peak_id")
 	private Peak peak;
+	@JsonIgnore
 	@OneToMany(mappedBy ="lift")
 	private List<Route> routes;
 	public Lift() {

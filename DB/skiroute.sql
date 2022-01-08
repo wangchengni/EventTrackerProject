@@ -57,10 +57,11 @@ DROP TABLE IF EXISTS `route` ;
 CREATE TABLE IF NOT EXISTS `route` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `distance` VARCHAR(45) NOT NULL,
+  `distance` DECIMAL NOT NULL,
   `level` VARCHAR(45) NULL,
   `lift_id` INT NOT NULL,
   `peak_id` INT NOT NULL,
+  `snow_condition` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_route_lift1_idx` (`lift_id` ASC),
   INDEX `fk_route_peak1_idx` (`peak_id` ASC),
@@ -86,30 +87,6 @@ CREATE TABLE IF NOT EXISTS `snow_condition` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `snow_condition_route`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `snow_condition_route` ;
-
-CREATE TABLE IF NOT EXISTS `snow_condition_route` (
-  `snow_condition_id` INT NOT NULL,
-  `route_id` INT NOT NULL,
-  PRIMARY KEY (`snow_condition_id`, `route_id`),
-  INDEX `fk_snow_condition_has_route_route1_idx` (`route_id` ASC),
-  INDEX `fk_snow_condition_has_route_snow_condition1_idx` (`snow_condition_id` ASC),
-  CONSTRAINT `fk_snow_condition_has_route_snow_condition1`
-    FOREIGN KEY (`snow_condition_id`)
-    REFERENCES `snow_condition` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_snow_condition_has_route_route1`
-    FOREIGN KEY (`route_id`)
-    REFERENCES `route` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -155,24 +132,24 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `skiroutedb`;
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (1, 'Last Hoot', '1 mile', 'Green', 1, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (2, 'Dyersville', '2 miles', 'Blue', 1, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (3, 'Springmeier', '1.5 miles', 'Blue', 1, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (4, 'Eldorado', '1 mile', 'Green', 2, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (5, 'Sundown', '4000 ft', 'Blue', 2, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (6, 'Mine Shaft', '5000 ft', 'Expert', 2, 1);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (7, 'Freeway', '1.6 miles', 'Blue', 3, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (8, 'Easy Street', '2000 ft', 'Black', 3, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (9, '9 Lives', '1000 ft', 'Expert', 3, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (10, 'Frontier', '2.3 miles', 'Green', 4, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (11, 'Sawmill', '3.5 miles', 'Green', 4, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (12, 'Pioneer', '2 miles', 'Blue', 4, 2);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (13, 'Ore Bucket', '2000 ft', 'Black', 5, 3);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (14, 'Lincoln Meadows', '1.8 miles', 'Blue', 5, 3);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (15, 'Wirepath', '1.9 miles', 'Blue', 5, 3);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (16, 'Boundary Chutes', '3500 ft', 'Expert', 6, 3);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (17, 'Queen', '2500 ft', 'Expert', 6, 3);
-INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`) VALUES (18, 'White Crown', '5280 ft', 'Black', 6, 3);
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (1, 'Last Hoot', 1, 'Green', 1, 1, 'Icy');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (2, 'Dyersville', 2 , 'Blue', 1, 1, 'Icy');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (3, 'Springmeier', 1.5 , 'Blue', 1, 1, 'Groomed');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (4, 'Eldorado', 1 , 'Green', 2, 1, 'Groomed');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (5, 'Sundown', 0.8, 'Blue', 2, 1, 'Powder');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (6, 'Mine Shaft', 0.9, 'Expert', 2, 1, 'Moguls');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (7, 'Freeway', 1.6, 'Blue', 3, 2, 'Icy');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (8, 'Easy Street', 0.4, 'Black', 3, 2, 'Groomed');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (9, '9 Lives', 0.2, 'Expert', 3, 2, 'Moguls');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (10, 'Frontier', 2.3 , 'Green', 4, 2, 'Powder');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (11, 'Sawmill', 3.5 , 'Green', 4, 2, 'Icy');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (12, 'Pioneer', 2 , 'Blue', 4, 2, 'Icy');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (13, 'Ore Bucket', 0.4, 'Black', 5, 3, 'Powder');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (14, 'Lincoln Meadows', 1.8 , 'Blue', 5, 3, 'Powder');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (15, 'Wirepath', 1.9 , 'Blue', 5, 3, 'Moguls');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (16, 'Boundary Chutes', 0.7, 'Expert', 6, 3, 'Slash');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (17, 'Queen', 0.5, 'Expert', 6, 3, 'Slash');
+INSERT INTO `route` (`id`, `name`, `distance`, `level`, `lift_id`, `peak_id`, `snow_condition`) VALUES (18, 'White Crown', 1, 'Black', 6, 3, 'Icy');
 
 COMMIT;
 
@@ -187,33 +164,6 @@ INSERT INTO `snow_condition` (`id`, `title`) VALUES (2, 'Groomed');
 INSERT INTO `snow_condition` (`id`, `title`) VALUES (3, 'Moguls');
 INSERT INTO `snow_condition` (`id`, `title`) VALUES (4, 'Slash');
 INSERT INTO `snow_condition` (`id`, `title`) VALUES (5, 'Powder');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `snow_condition_route`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `skiroutedb`;
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (1, 1);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 2);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 3);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 4);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 5);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 6);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 7);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 8);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 9);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 10);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 11);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 12);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 13);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 14);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (4, 15);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (5, 16);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (3, 17);
-INSERT INTO `snow_condition_route` (`snow_condition_id`, `route_id`) VALUES (2, 18);
 
 COMMIT;
 

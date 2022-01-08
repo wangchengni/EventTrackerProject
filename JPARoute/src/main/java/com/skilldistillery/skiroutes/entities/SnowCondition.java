@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="snow_condition")
 public class SnowCondition {
@@ -19,8 +21,8 @@ public class SnowCondition {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	@ManyToMany(mappedBy ="snowConditions")
-	private List<Route> routes;
+//	@ManyToMany(mappedBy ="snowConditions")
+//	private List<Route> routes;
 	
 	public SnowCondition() {
 		super();
@@ -41,41 +43,43 @@ public class SnowCondition {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public List<Route> getRoutes() {
-		return routes;
-	}
-
-	public void setRoutes(List<Route> routes) {
-		this.routes = routes;
-	}
-	public boolean addRoute(Route route) {
-		if(routes == null) {
-			routes = new ArrayList<>();
-		}
-		boolean addedToList = false;
-		if(route != null) {
-			if(! routes.contains(route)) {
-				addedToList = routes.add(route);
-			}
-			if(! route.getSnowConditions().contains(this)) {
-				route.getSnowConditions().add(this);
-			}
-		}
-		return addedToList;
-	}
-	public boolean removeRoute(Route route) {
-		boolean removed = false;
-		if(route != null && routes.contains(route)) {
-			removed = routes.remove(route);
-			
-		}
-		if(route.getSnowConditions().contains(this)) {
-			route.removeSnowCondition(this);
-		}
-		return removed;
-	}
-
+	
+	
+//--------------------Save for Later
+//	public List<Route> getRoutes() {
+//		return routes;
+//	}
+//
+//	public void setRoutes(List<Route> routes) {
+//		this.routes = routes;
+//	}
+//	public boolean addRoute(Route route) {
+//		if(routes == null) {
+//			routes = new ArrayList<>();
+//		}
+//		boolean addedToList = false;
+//		if(route != null) {
+//			if(! routes.contains(route)) {
+//				addedToList = routes.add(route);
+//			}
+//			if(! route.getSnowConditions().contains(this)) {
+//				route.getSnowConditions().add(this);
+//			}
+//		}
+//		return addedToList;
+//	}
+//	public boolean removeRoute(Route route) {
+//		boolean removed = false;
+//		if(route != null && routes.contains(route)) {
+//			removed = routes.remove(route);
+//			
+//		}
+//		if(route.getSnowConditions().contains(this)) {
+//			route.removeSnowCondition(this);
+//		}
+//		return removed;
+//	}
+//----------------------------save for later
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

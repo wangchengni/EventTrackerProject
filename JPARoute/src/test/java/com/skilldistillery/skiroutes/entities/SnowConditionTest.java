@@ -44,11 +44,6 @@ class SnowConditionTest {
 		assertNotNull(condition);
 		assertEquals("Icy", condition.getTitle());
 	}
-	@Test
-	void test_Routs() {
-		assertNotNull(condition);
-		assertTrue(condition.getRoutes().size()>0);
-	}
 	
 
 }
