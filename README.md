@@ -3,6 +3,7 @@
 ## OverView
 
 ### REST API
+Go To http://35.162.4.6:8083/skiRoute/api/routes
 
 ### HTML/JavaScript Front End
 
