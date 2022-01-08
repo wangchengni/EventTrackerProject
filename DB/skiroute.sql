@@ -90,11 +90,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `route_has_condition`
+-- Table `route_condition`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `route_has_condition` ;
+DROP TABLE IF EXISTS `route_condition` ;
 
-CREATE TABLE IF NOT EXISTS `route_has_condition` (
+CREATE TABLE IF NOT EXISTS `route_condition` (
   `route_id` INT NOT NULL,
   `condition_id` INT NOT NULL,
   PRIMARY KEY (`route_id`, `condition_id`),
@@ -140,12 +140,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `skiroutedb`;
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (1, 'Peak 8 SuperConnect', '15', 1, 4);
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (2, 'Snowflake', '10', 1, 4);
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (3, 'Mecury SuperChair', '20', 2, 6);
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (4, 'E-Chair', '8', 2, 4);
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (5, 'Falcon Superchair', '10', 3, 6);
-INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (6, 'Zendo Chair', '9', 3, 4);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (1, 'Peak 8 SuperConnect', '15 mins', 1, 4);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (2, 'Snowflake', '10 mins', 1, 4);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (3, 'Mecury SuperChair', '20 mins', 2, 6);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (4, 'E-Chair', '8 mins', 2, 4);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (5, 'Falcon Superchair', '10 mins', 3, 6);
+INSERT INTO `lift` (`id`, `name`, `run_time`, `peak_id`, `carrier_number`) VALUES (6, 'Zendo Chair', '9 mins', 3, 4);
 
 COMMIT;
 
@@ -192,28 +192,28 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `route_has_condition`
+-- Data for table `route_condition`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `skiroutedb`;
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (1, 1);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (2, 2);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (3, 3);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (4, 5);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (5, 4);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (6, 3);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (7, 2);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (8, 1);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (9, 2);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (10, 3);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (11, 4);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (12, 5);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (13, 2);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (14, 1);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (15, 4);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (16, 5);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (17, 2);
-INSERT INTO `route_has_condition` (`route_id`, `condition_id`) VALUES (18, 1);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (1, 1);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (2, 2);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (3, 3);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (4, 5);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (5, 4);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (6, 3);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (7, 2);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (8, 1);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (9, 2);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (10, 3);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (11, 4);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (12, 5);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (13, 2);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (14, 1);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (15, 4);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (16, 5);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (17, 2);
+INSERT INTO `route_condition` (`route_id`, `condition_id`) VALUES (18, 1);
 
 COMMIT;
 

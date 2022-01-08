@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RouteTest {
+class PeakTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Route route;
+	private Peak peak;
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("JPARoute");
@@ -30,35 +30,33 @@ class RouteTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em=emf.createEntityManager();
-		route =em.find(Route.class, 1);
+		peak =em.find(Peak.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		route = null;
+		peak = null;
 		
 	}
 
 	@Test
-	void test_Peak() {
-		assertNotNull(route.getPeak());
-		assertEquals("Peak 8", route.getPeak().getName());
-	}
-	@Test
-	void test_Lift() {
-		assertNotNull(route.getLift());
-		assertEquals("Peak 8 SuperConnect", route.getLift().getName());
-	}
-	@Test
 	void test() {
-		assertNotNull(route);
-		assertEquals("Last Hoot", route.getName());
+		assertNotNull(peak);
+		assertEquals("12998 ft", peak.getElevation());
+	
 	}
-//	@Test
-//	void test_Conditions() {
-//		assertNotNull(route.getConditions());
-////		assertTrue(route.getConditions().size()>0);
-//	}
+	@Test
+	void test_Routes() {
+		assertNotNull(peak.getRoutes());
+		assertTrue(peak.getRoutes().size()>0);
+		
+	}
+	@Test
+	void test_Lifts() {
+		assertNotNull(peak.getLifts());
+		assertTrue(peak.getLifts().size()>0);
+		
+	}
 
 }
