@@ -14,4 +14,6 @@ public interface RouteRepository extends JpaRepository<Route, Integer> {
 	List<Route> findBySnowCondition(String snowCondition);
 	List<Route> findByDistanceGreaterThan(double distance);
 	List<Route> findByLevelOrderByLevel(String level);
+//	List<Route> OrderByLevel(String level);
+	
 }

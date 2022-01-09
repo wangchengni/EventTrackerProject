@@ -25,6 +25,8 @@ public interface RouteService {
 	List<Route> findBySnowCondition(String snowCondition);
 	List<Route> findByDistanceGreaterThan(double distance);
 	List<Route> OrderByLevel(String level);
+//	List<Route> findAllOrderByLevel(String level);
+	
 	
 	/*
 	 * -------------------------

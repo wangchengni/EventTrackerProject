@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.skiroutes.entities.Lift;
 import com.skilldistillery.skiroutes.entities.Route;
 import com.skilldistillery.skiroutes.repositories.LiftRepository;
 import com.skilldistillery.skiroutes.repositories.RouteRepository;
-import com.skilldistillery.skiroutes.repositories.SnowConditionRepository;
 
 @Service
 public class RouteServiceImpl implements RouteService {
@@ -34,7 +34,10 @@ public class RouteServiceImpl implements RouteService {
 	public Route getRouteById(int id) {
 		// TODO Auto-generated method stub
 		Optional<Route> op = routeRepo.findById(id);
-		Route route = op.get();
+		Route route = null;
+		if(op.isPresent()) {
+			route = op.get();
+		}
 		return route;
 	}
 
@@ -86,6 +89,10 @@ public class RouteServiceImpl implements RouteService {
 	public List<Route> OrderByLevel(String level) {
 		return routeRepo.findByLevelOrderByLevel(level);
 	}
+//	@Override
+//	public List<Route> findAllOrderByLevel(String level) {
+//		return routeRepo.OrderByLevel(level);
+//	}
 
 	/*
 	 * ---------------------------------
@@ -95,19 +102,47 @@ public class RouteServiceImpl implements RouteService {
 	@Override
 	public Route addRoute(int id, Route route) {
 		// TODO Auto-generated method stub
+		Optional<Lift> op = liftRepo.findById(id);
+		if(op.isPresent()) {
+			Lift lift = op.get();
+			route.setLift(lift);
+			route.setPeak(lift.getPeak());
+			routeRepo.saveAndFlush(route);
+			return route;
+		}
 		return null;
 	}
 
 	@Override
 	public Route updateRoute(int id, Route route) {
 		// TODO Auto-generated method stub
-		return null;
+		Optional <Route> op = routeRepo.findById(id);
+		Route managed = null;
+		if(op.isPresent()) {
+			managed = op.get();
+			managed.setName(route.getName());
+			managed.setDistance(route.getDistance());
+			managed.setLevel(route.getLevel());
+			managed.setSnowCondition(route.getSnowCondition());
+			managed.setLift(route.getLift());
+			managed.setPeak(route.getPeak());
+			routeRepo.saveAndFlush(managed);
+		}
+		return managed;
 	}
 
 	@Override
 	public boolean delete(int liftId, int routeId) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<Route> op = routeRepo.findById(routeId);
+		if(op.isPresent()) {
+			Route route = op.get();
+			if(route.getLift().getId() == liftId) {
+				routeRepo.deleteById(routeId);
+				deleted = true;
+			}
+		}
+		return deleted;
 	}
 
 }
