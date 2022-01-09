@@ -40,7 +40,7 @@ Go To http://35.162.4.6:8083/skiRoute/api/routes
 | List<Route> | GET        | /api/Routes/orderBy{level} | Route JSON|
 | Route       | POST       | /api/Lifts/{id}routes | Route JSON|
 | Route       | PUT        | /api/Routes/{id} | Route JSON|
-| VOID        | DELETE     | /api/Lifts/{liftId}routes/{routeId} | Route JSON|
+| Void        | DELETE     | /api/Lifts/{liftId}routes/{routeId} | Route JSON|
 
 
 
