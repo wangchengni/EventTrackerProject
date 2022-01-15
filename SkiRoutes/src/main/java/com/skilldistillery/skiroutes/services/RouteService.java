@@ -35,6 +35,6 @@ public interface RouteService {
 	 */
 	Route addRoute (int id, Route route);
 	Route updateRoute(int id, Route route);
-	boolean delete(int liftId,int routeId );
+	boolean delete(int routeId );
 
 }

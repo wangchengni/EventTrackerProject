@@ -19,12 +19,26 @@
 		</form>
 		<h3>Routes and more</h3>
 		<div name="output">
-			<div id='routeData'></div>
+			<div id='routeData'></div><br>
 		</div>
 		<!-- TODO: NEW Route from here-->
 		<form name="newRouteForm">
 			<label for="liftId">Lift Id</label>
 			<input type="number" name="liftId" placeholder="1-6"><br>
+			<label for="name">Route Name</label>
+			<input type="text" name="name" minlength="1" placeholder="Name"><br>
+			<label for="distance">Route Distance</label>
+			<input type="number" name="distance" min="0" placeholder="Distance Miles"><br>
+			<label for="level">Route Level</label>
+			<input type="text" name="level" placeholder="Green, Blue, etc"><br>
+			<label for="snowCondition">Route Condition</label>
+			<input type="text" name="snowCondition" placeholder="Icy,Groomed, etc"><br>
+			<button name="addRoute">Add Routes You Like</button>
+		</form>
+		<form name="updateRouteForm">
+			<h3>Make some changes</h3>
+			<label for="routeId">Route Id</label>
+			<input type="number" name="routeId" placeholder="1,2,etc.."><br>
 			<label for="name">Route Name</label>
 			<input type="text" name="name" placeholder="Name"><br>
 			<label for="distance">Route Distance</label>
@@ -33,7 +47,12 @@
 			<input type="text" name="level" placeholder="Green, Blue, etc"><br>
 			<label for="snowCondition">Route Condition</label>
 			<input type="text" name="snowCondition" placeholder="Icy,Groomed, etc"><br>
-			<button name="addRoute">Add Routes You Like</button>
+			<button name="updateRoute">Update Routes</button>
+		</form>
+		<form name="deleteRouteForm">
+			<h3>Delete one Route</h3>
+			<input type="number" name="routeId">
+			<button name="deleteButton">Delete Route By Id</button>
 		</form>
 	</main>
 </body>

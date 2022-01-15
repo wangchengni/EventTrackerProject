@@ -114,13 +114,12 @@ public class RouteController {
 		
 		return route;
 	}
-	@DeleteMapping("lifts/{liftId}/routes/{routeId}")
+	@DeleteMapping("routes/{routeId}")
 	public void deletRoute(
-			@PathVariable int liftId,
 			@PathVariable int routeId,
 			HttpServletResponse res) {
 		try {
-			if(routeSev.delete(liftId, routeId)) {
+			if(routeSev.delete(routeId)) {
 				res.setStatus(HttpStatus.NO_CONTENT.value());
 			}else {
 				res.setStatus(404);

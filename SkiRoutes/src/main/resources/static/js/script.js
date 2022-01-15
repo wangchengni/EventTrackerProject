@@ -12,9 +12,8 @@ function init() {
     var routeId = document.routeForm.routeId.value;
     if (!isNaN(routeId) && routeId > 0) {
       getRoute(routeId);
-      //getActors(filmId);
     }
-  })
+  });
   document.newRouteForm.addRoute.addEventListener('click', function(evt) {
     evt.preventDefault();
     let form = document.newRouteForm;
@@ -27,6 +26,25 @@ function init() {
     }
     postRoute(newRoute);
   });
+	document.updateRouteForm.updateRoute.addEventListener('click', function(evte) {
+		evte.preventDefault();
+		let form = document.updateRouteForm;
+		let exRoute = {
+			routeId: form.routeId.value,
+			name: form.name.value,
+			distance: form.distance.value,
+			level: form.level.value,
+			snowCondition: form.snowCondition.value
+		}
+		updateRoute(exRoute);
+	});
+	document.deleteRouteForm.deleteButton.addEventListener('click', function(event2) {
+		event2.preventDefault();
+		var routeId = document.deleteRouteForm.routeId.value;
+		if (!isNaN(routeId) && routeId > 0) {
+			deleteRoute(routeId);
+		}
+	})
 }
 
 ///Get Route by Route id;
@@ -52,6 +70,7 @@ function getRoute(routeId) {
 function displayError(msg) {
   var routeDiv = document.getElementById('routeData')
   routeDiv.textContent = msg;
+	routeDiv.style.color ="Red"
 }
 
 function displayRoute(route) {
@@ -78,6 +97,9 @@ function displayRoute(route) {
   li = document.createElement('li');
   li.textContent = `Today's Route Condition: ` + route.snowCondition;
   dataDiv.appendChild(li);
+	li = document.createElement('li');
+  li.textContent = `Lift Name: ` + route.lift.name;
+  dataDiv.appendChild(li);
 }
 ///Create New Route
 function postRoute(newRoute) {
@@ -87,7 +109,7 @@ function postRoute(newRoute) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       //question why null name and negative distance passed the teset here but failed on Postman
-      if (newRoute.name != null && newRoute.distance > 0) {
+
         if (xhr.status === 201 || xhr.status === 200) {
           console.log('Request succeded');
           let route = JSON.parse(xhr.responseText);
@@ -95,7 +117,7 @@ function postRoute(newRoute) {
           console.log(route);
           displayRoute(route);
         }
-      } else {
+       else {
         console.log('Route created failed with status :' + xhr.status);
         console.log(xhr.status + ':' + xhr.responseText);
       }
@@ -104,4 +126,49 @@ function postRoute(newRoute) {
   xhr.setRequestHeader("Content-type", "application/json");
   var userObjectJson = JSON.stringify(newRoute);
   xhr.send(userObjectJson);
+}
+////update route here
+function updateRoute(exRoute){
+	console.log(exRoute);
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/routes/' + exRoute.routeId);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			if(xhr.status ===200){
+				console.log('Request succeded');
+				let route = JSON.parse(xhr.responseText);
+				console.log(xhr.getResponseHeader('Location'));
+				console.log(route);
+				displayRoute(route);
+			}
+			else{
+				console.log('Route update failed with status :'+
+			  xhr.status);
+				console.log(xhr.status +':'+xhr.responseText);
+			}
+		}
+	}
+	xhr.setRequestHeader("Content-type", "application/json");
+  var userObjectJson = JSON.stringify(exRoute);
+  xhr.send(userObjectJson);
+}
+/////delete exitsing routes
+function deleteRoute(routeId){
+	let xhr = new XMLHttpRequest
+	let route = getRoute(routeId);
+	xhr.open('DELETE','api/routes/' + routeId);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState ===4){
+			if(xhr.status===204 || xhr.status ===200){
+				console.log('Delete succeded');
+			}
+			else if(xhr.status ===404){
+				console.log('Route for'+routeId+'not found');
+			}
+			else{
+				console.log('Error restrieving route: '+xhr.status);
+			}
+		}
+	}
+	xhr.send();
 }

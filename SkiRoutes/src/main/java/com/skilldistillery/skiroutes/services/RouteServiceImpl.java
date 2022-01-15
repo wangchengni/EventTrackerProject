@@ -124,20 +124,21 @@ public class RouteServiceImpl implements RouteService {
 			managed.setDistance(route.getDistance());
 			managed.setLevel(route.getLevel());
 			managed.setSnowCondition(route.getSnowCondition());
-			managed.setLift(route.getLift());
-			managed.setPeak(route.getPeak());
+//			managed.setLift(route.getLift());
+//			managed.setPeak(route.getPeak());
 			routeRepo.saveAndFlush(managed);
 		}
 		return managed;
 	}
 
 	@Override
-	public boolean delete(int liftId, int routeId) {
+	public boolean delete(int routeId) {
 		boolean deleted = false;
 		Optional<Route> op = routeRepo.findById(routeId);
 		if(op.isPresent()) {
 			Route route = op.get();
-			if(route.getLift().getId() == liftId) {
+			int liftId = route.getLift().getId();
+			if(liftRepo.existsById(liftId)) {
 				routeRepo.deleteById(routeId);
 				deleted = true;
 			}
