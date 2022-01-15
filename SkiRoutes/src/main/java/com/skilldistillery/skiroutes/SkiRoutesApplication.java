@@ -2,9 +2,15 @@ package com.skilldistillery.skiroutes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class SkiRoutesApplication {
+public class SkiRoutesApplication extends SpringBootServletInitializer {
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(SkiRoutesApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SkiRoutesApplication.class, args);

@@ -103,7 +103,7 @@ public class RouteServiceImpl implements RouteService {
 	public Route addRoute(int id, Route route) {
 		// TODO Auto-generated method stub
 		Optional<Lift> op = liftRepo.findById(id);
-		if(op.isPresent()) {
+		if(op.isPresent() && route.getName() !=null && route.getDistance() >0) {
 			Lift lift = op.get();
 			route.setLift(lift);
 			route.setPeak(lift.getPeak());
