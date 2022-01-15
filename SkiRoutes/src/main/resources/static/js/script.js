@@ -40,9 +40,9 @@ function init() {
 	});
 	document.deleteRouteForm.deleteButton.addEventListener('click', function(event2) {
 		event2.preventDefault();
-		var routeId = document.deleteRouteForm.routeId.value;
-		if (!isNaN(routeId) && routeId > 0) {
-			deleteRoute(routeId);
+		var routeDelId = document.deleteRouteForm.routeId.value;
+		if (!isNaN(routeDelId) && routeDelId > 0) {
+			deleteRoute(routeDelId);
 		}
 	})
 }
@@ -153,17 +153,16 @@ function updateRoute(exRoute){
   xhr.send(userObjectJson);
 }
 /////delete exitsing routes
-function deleteRoute(routeId){
+function deleteRoute(routeDelId){
 	let xhr = new XMLHttpRequest
-	let route = getRoute(routeId);
-	xhr.open('DELETE','api/routes/' + routeId);
+	xhr.open('DELETE','api/routes/' + routeDelId);
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState ===4){
 			if(xhr.status===204 || xhr.status ===200){
 				console.log('Delete succeded');
 			}
 			else if(xhr.status ===404){
-				console.log('Route for'+routeId+'not found');
+				console.log('Route for'+routeDelId+'not found');
 			}
 			else{
 				console.log('Error restrieving route: '+xhr.status);
