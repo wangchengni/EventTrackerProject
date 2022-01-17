@@ -44,7 +44,14 @@ function init() {
 		if (!isNaN(routeDelId) && routeDelId > 0) {
 			deleteRoute(routeDelId);
 		}
-	})
+	});
+	document.routeDistanceForm.lookup.addEventListener('click', function(event3) {
+    event.preventDefault();
+    var liftId = document.routeDistanceForm.liftId.value;
+    if (!isNaN(liftId) && liftId > 0) {
+      getTotalDistance(liftId);
+    }
+  });
 }
 
 ///Get Route by Route id;
@@ -57,6 +64,25 @@ function getRoute(routeId) {
         console.log('Requested succeded');
         let route = JSON.parse(xhr.responseText);
         displayRoute(route);
+      } else if (xhr.readyState === 404) {
+        displayError('Route' + routeId + 'not found');
+      } else {
+        displayError('Error restrieving film: ' + xhr.status)
+      }
+    }
+  }
+  xhr.send();
+}
+////get total distance by id
+function getTotalDistance(liftId) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'api/routes/lift/' + liftId);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log('Requested succeded');
+        let routes = JSON.parse(xhr.responseText);
+        displayTotalDistance(routes);
       } else if (xhr.readyState === 404) {
         displayError('Route' + routeId + 'not found');
       } else {
@@ -85,21 +111,39 @@ function displayRoute(route) {
   let li = document.createElement('li');
   if (route.distance > 1) {
     li.textContent = 'Route Distance :' + route.distance + ' miles';
-    dataDiv.appendChild(li);
+    ul.appendChild(li);
   } else {
     li.textContent = 'Route Distance :' + route.distance + ' mile';
-    dataDiv.appendChild(li);
+    ul.appendChild(li);
   };
 
   li = document.createElement('li');
   li.textContent = 'Route Level :' + route.level;
-  dataDiv.appendChild(li);
+  ul.appendChild(li);
   li = document.createElement('li');
   li.textContent = `Today's Route Condition: ` + route.snowCondition;
-  dataDiv.appendChild(li);
+  ul.appendChild(li);
 	li = document.createElement('li');
   li.textContent = `Lift Name: ` + route.lift.name;
-  dataDiv.appendChild(li);
+  ul.appendChild(li);
+}
+function displayTotalDistance(routes){
+	var dataDiv = document.getElementById('routeData');
+  dataDiv.textContent = '';
+  let h1 = document.createElement('h1');
+  h1.textContent = routes[0].lift.name;
+  dataDiv.appendChild(h1);
+	let ul = document.createElement('ul');
+	let li = document.createElement('li');
+	let x =0;
+	for (var i = 0; i < routes.length; i++) {
+	  dataDiv.appendChild(ul);
+	  let li = document.createElement('li');
+		x += routes[i].distance;
+
+	}
+	li.textContent =`This Lift's total distance is: `+x+' miles';
+	ul.appendChild(li);
 }
 ///Create New Route
 function postRoute(newRoute) {

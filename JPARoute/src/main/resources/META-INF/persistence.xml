@@ -8,6 +8,9 @@
 
 
 		<class>com.skilldistillery.skiroutes.entities.Route</class>
+		<class>com.skilldistillery.skiroutes.entities.Lift</class>
+		<class>com.skilldistillery.skiroutes.entities.Peak</class>
+		<class>com.skilldistillery.skiroutes.entities.SnowCondition</class>
 
 
 		<properties>

@@ -26,6 +26,12 @@ methods:
 Go To http://35.162.4.6:8083/skiRoute/api/routes
 
 ### HTML/JavaScript Front End
+Use the Atom, JavaScript and HTML to make the front end page, preventDefault is
+important to be set at first.
+The website can use the route Id to find the route data, use the lift Id to find
+the total distance. User can also create a new route under specific lift Id, user
+can also change route information based on the route Id, also if some route information
+is wrongly created, use can also use the route id to delete that.
 
 ### Angular Front End
 
