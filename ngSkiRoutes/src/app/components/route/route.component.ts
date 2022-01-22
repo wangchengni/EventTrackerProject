@@ -17,7 +17,10 @@ export class RouteComponent implements OnInit {
 
   constructor(private routeSev: RouteService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.reload();
+  }
+
   reload() {
     this.routeSev.index().subscribe({
       next: (routes) => {

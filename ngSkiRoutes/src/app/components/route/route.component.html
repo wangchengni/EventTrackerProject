@@ -19,24 +19,29 @@
   </table>
      <!-- showall? <input type="checkbox" name ="showComplete" [(ngModel)]='showComplete'> -->
       <input type="text" name ="name" placeholder="Route Name" [(ngModel)]="newRoute.name" class ="form-control">
-      <input type="submit" value ="Add Todo" (click)="addRoute(newRoute)">
+      <input type="text" name ="distance" placeholder="distance miles" [(ngModel)]="newRoute.distance" class ="form-control">
+      <input type="text" name ="level" placeholder="Green,Black etc" [(ngModel)]="newRoute.level" class ="form-control">
+      <input type="text" name ="snowCondition" placeholder="Icy,Groomed etc" [(ngModel)]="newRoute.snowCondition" class ="form-control">
+      <input type="submit" value ="Add Route" (click)="addRoute(newRoute)">
 </div>
 
 <div *ngIf="selected && !editRoute">
-  <p>{{ selected.id }}</p>
-  <p>{{ selected.name }}</p>
-  <p>{{ selected.distance }}</p>
-  <p>{{ selected.level }}</p>
-  <p>{{ selected.snowCondition }}</p>
+  <label for="id">ID :</label> <p>{{ selected.id }}</p>
+  <label for="name">Name :</label> <p>{{ selected.name }}</p>
+  <label for="distance">Distance :</label> <p>{{ selected.distance }} miles</p>
+  <label for="level">Level :</label> <p>{{ selected.level }}</p>
+  <label for="snowCondition">Snow Condition :</label> <p>{{ selected.snowCondition }}</p>
   <button (click)="displayTable()">Back</button>
   <button (click)="setRoute()">Edit</button>
 </div>
 
 <div *ngIf="editRoute">
-  <input type="text" name="name" [(ngModel)]="editRoute.id">
-  <input type="number" name="distance" [(ngModel)]="editRoute.distance">
-  <input type="text" name="level" [(ngModel)]="editRoute.level">
-  <input type="text" name="snowCondition" [(ngModel)]="editRoute.snowCondition">
+
+  <input type="text" name="name" [(ngModel)]="editRoute.name" placeholder="name" class ="form-control">
+  <input type="number" name="distance" [(ngModel)]="editRoute.distance" placeholder="distance miles" class ="form-control">
+  <input type="text" name="level" [(ngModel)]="editRoute.level" placeholder="Green,Black etc" class ="form-control">
+  <input type="text" name="snowCondition" [(ngModel)]="editRoute.snowCondition"  placeholder="Icy, Groomed etc" class ="form-control">
   <button (click)="updateRoute(editRoute)">Save</button>
   <button (click)="editRoute = null;">Cancel</button>
+
 </div>

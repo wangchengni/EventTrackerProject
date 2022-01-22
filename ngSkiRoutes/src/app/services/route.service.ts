@@ -8,7 +8,7 @@ import { Route } from '../models/route';
 })
 export class RouteService {
   private baseUrl = 'http://localhost:8083/';
-  private url = 'api/routes';
+  private url = this.baseUrl + 'api/routes';
   constructor(private http: HttpClient) {}
 
   //index() show all lists on the main page
