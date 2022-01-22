@@ -1,0 +1,42 @@
+<h1>{{ title }}  {{ getNumRoutes() }}</h1>
+<div *ngIf="!selected">
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let route of routes ">
+        <td >{{ route.id }}</td>
+        <td (click)="displayRoute(route)">{{ route.name }}</td>
+        <!-- <td><input (change)='updateRoute(route,false)'type="checkbox" name ="completed" [(ngModel)]="todo.completed" class="from-check"></td>
+        <td>{{ todo.completed }}</td> -->
+        <td><button class='btn-danger' (click)="deleteRoute(route.id)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+     <!-- showall? <input type="checkbox" name ="showComplete" [(ngModel)]='showComplete'> -->
+      <input type="text" name ="name" placeholder="Route Name" [(ngModel)]="newRoute.name" class ="form-control">
+      <input type="submit" value ="Add Todo" (click)="addRoute(newRoute)">
+</div>
+
+<div *ngIf="selected && !editRoute">
+  <p>{{ selected.id }}</p>
+  <p>{{ selected.name }}</p>
+  <p>{{ selected.distance }}</p>
+  <p>{{ selected.level }}</p>
+  <p>{{ selected.snowCondition }}</p>
+  <button (click)="displayTable()">Back</button>
+  <button (click)="setRoute()">Edit</button>
+</div>
+
+<div *ngIf="editRoute">
+  <input type="text" name="name" [(ngModel)]="editRoute.id">
+  <input type="number" name="distance" [(ngModel)]="editRoute.distance">
+  <input type="text" name="level" [(ngModel)]="editRoute.level">
+  <input type="text" name="snowCondition" [(ngModel)]="editRoute.snowCondition">
+  <button (click)="updateRoute(editRoute)">Save</button>
+  <button (click)="editRoute = null;">Cancel</button>
+</div>
