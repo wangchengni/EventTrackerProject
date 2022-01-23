@@ -9,6 +9,7 @@ import { Route } from '../models/route';
 export class RouteService {
   private baseUrl = 'http://localhost:8083/';
   private url = this.baseUrl + 'api/routes';
+  private url2 = this.baseUrl + 'api/lifts';
   constructor(private http: HttpClient) {}
 
   //index() show all lists on the main page
@@ -22,17 +23,19 @@ export class RouteService {
       })
     );
   }
-  create(route: Route): Observable<Route> {
+  create(route: Route, LiftId: number): Observable<Route> {
     console.log(route);
 
-    return this.http.post<Route>(this.url, route).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          () => 'RouteService.create():error creating routes: ' + err
-        );
-      })
-    );
+    return this.http
+      .post<Route>(this.url2 + '/' + LiftId + '/' + 'routes', route)
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () => 'RouteService.create():error creating routes: ' + err
+          );
+        })
+      );
   }
   update(route: Route): Observable<Route> {
     return this.http.put<Route>(this.url + '/' + route.id, route).pipe(

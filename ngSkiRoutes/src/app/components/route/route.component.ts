@@ -14,6 +14,7 @@ export class RouteComponent implements OnInit {
   selected: Route | null = null;
   newRoute: Route = new Route();
   editRoute: Route | null = null;
+  liftId: number = 0;
 
   constructor(private routeSev: RouteService, private router: Router) {}
 
@@ -32,8 +33,8 @@ export class RouteComponent implements OnInit {
       },
     });
   }
-  addRoute(route: Route) {
-    this.routeSev.create(route).subscribe({
+  addRoute(route: Route, liftId: number) {
+    this.routeSev.create(route, liftId).subscribe({
       next: (t) => {
         this.newRoute = new Route();
         this.reload();

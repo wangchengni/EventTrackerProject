@@ -18,11 +18,12 @@
     </tbody>
   </table>
      <!-- showall? <input type="checkbox" name ="showComplete" [(ngModel)]='showComplete'> -->
+      <input type="number" name ="liftId" placeholder="Lift Id"  [(ngModel)]="liftId" class ="form-control">
       <input type="text" name ="name" placeholder="Route Name" [(ngModel)]="newRoute.name" class ="form-control">
       <input type="text" name ="distance" placeholder="distance miles" [(ngModel)]="newRoute.distance" class ="form-control">
       <input type="text" name ="level" placeholder="Green,Black etc" [(ngModel)]="newRoute.level" class ="form-control">
       <input type="text" name ="snowCondition" placeholder="Icy,Groomed etc" [(ngModel)]="newRoute.snowCondition" class ="form-control">
-      <input type="submit" value ="Add Route" (click)="addRoute(newRoute)">
+      <input type="submit" value ="Add Route" (click)="addRoute(newRoute,liftId)">
 </div>
 
 <div *ngIf="selected && !editRoute">
