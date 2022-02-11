@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Route } from '../models/route';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouteService {
-  private baseUrl = 'http://localhost:8083/';
-  private url = this.baseUrl + 'api/routes';
-  private url2 = this.baseUrl + 'api/lifts';
+  // private baseUrl = 'http://localhost:8083/';
+  // private url = this.baseUrl + 'api/routes';
+  // private url2 = this.baseUrl + 'api/lifts';
+  private url = environment.baseUrl + 'api/routes';
+  private url2 = environment.baseUrl + 'api/lifts';
   constructor(private http: HttpClient) {}
 
   //index() show all lists on the main page

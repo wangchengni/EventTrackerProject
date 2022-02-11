@@ -48,7 +48,7 @@ public class RouteServiceImpl implements RouteService {
 	 */
 	@Override
 	public List<Route> findByKeywords(String keyword) {
-		keyword ="%" +keyword +"%";
+		keyword ="%" +keyword.toUpperCase() +"%";
 		return routeRepo.findByNameLikeOrLevelLike(keyword, keyword);
 	}
 
@@ -64,7 +64,7 @@ public class RouteServiceImpl implements RouteService {
 
 	@Override
 	public List<Route> findByLiftName(String name) {
-		if(liftRepo.findByNameLike(name).size()<=0) {
+		if(liftRepo.findLiftByNameLike(name).size()<=0) {
 			return null;
 		}
 		List<Route> routes =routeRepo.findByLift_NameLike(name) ;

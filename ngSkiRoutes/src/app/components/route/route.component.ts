@@ -60,6 +60,7 @@ export class RouteComponent implements OnInit {
       },
     });
   }
+  
   setRoute() {
     this.editRoute = Object.assign({}, this.selected);
   }
