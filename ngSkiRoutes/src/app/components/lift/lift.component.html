@@ -1,0 +1,33 @@
+<h1>{{ title }}  {{ getNumLifts() }}</h1>
+<div *ngIf="!selected">
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let lift of lifts ">
+        <td >{{ lift.id }}</td>
+        <!-- <td class = "liftName_CSS"(click)="displayLift(lift)" (click)="getRoutesByLiftId(lift.id)">{{ lift.name }}</td> -->
+        <td><a class = "liftName_CSS" [routerLink]="['/lift/', lift.id]">{{ lift.name }}</a></td>
+
+        <td><button class='btn-danger' (click)="deleteLift(lift.id)">X</button></td>
+      </tr>
+    </tbody>
+    <!-- <button (click)="showAddFunction = 1;">Add Lift</button> -->
+    <button data-bs-toggle="collapse" data-bs-target="#demo">Add Lift</button>
+
+  </table>
+
+    <!-- <div *ngIf="showAddFunction==1"> -->
+    <div id="demo" class="collapse">
+
+      <input type="number" name ="peakId" placeholder="Peak Id"  [(ngModel)]="peakId" class ="form-control" min ="1" max="peak.id">
+      <input type="text" name ="name" placeholder="Lift Name" [(ngModel)]="newLift.name" class ="form-control">
+      <input type="text" name ="distance" placeholder="Run Time" [(ngModel)]="newLift.runTime" class ="form-control">
+      <input type="number" name ="level" placeholder="Carrier Number" [(ngModel)]="newLift.carrierNumber" class ="form-control">
+      <input type="submit" value ="submit" (click)="addLift(newLift,peakId)">
+    </div>
+</div>

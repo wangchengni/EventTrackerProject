@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Route } from '../models/route';
+import { Route } from '../../models/route/route';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,43 @@ export class RouteService {
       })
     );
   }
-  create(route: Route, LiftId: number): Observable<Route> {
+  GetByRouteId(routeId: number): Observable<Route> {
+    return (
+      this.http
+        // .get<Market>(this.url + '/' + marketId, this.getHttpOptions())
+        .get<Route>(this.url + '/' + routeId)
+        .pipe(
+          catchError((err: any) => {
+            console.log(err);
+            return throwError(
+              () =>
+                'RouteService.GetByRouteId(): error retrieving route :' + err
+            );
+          })
+        )
+    );
+  }
+  GetByLiftId(liftId: number): Observable<Route[]> {
+    return (
+      this.http
+        // .get<Market>(this.url + '/' + marketId, this.getHttpOptions())
+        .get<Route[]>(this.url + '/' + 'lift' + '/' + liftId)
+        .pipe(
+          catchError((err: any) => {
+            console.log(err);
+            return throwError(
+              () =>
+                'RouteService.GetByLiftId(): error retrieving routes :' + err
+            );
+          })
+        )
+    );
+  }
+  create(route: Route, liftId: number): Observable<Route> {
     console.log(route);
 
     return this.http
-      .post<Route>(this.url2 + '/' + LiftId + '/' + 'routes', route)
+      .post<Route>(this.url2 + '/' + liftId + '/' + 'routes', route)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -43,7 +75,7 @@ export class RouteService {
   update(route: Route): Observable<Route> {
     return this.http.put<Route>(this.url + '/' + route.id, route).pipe(
       catchError((problem: any) => {
-        console.error('RouteService.update(): error update todo');
+        console.error('RouteService.update(): error update route');
         console.error(problem);
         return throwError(
           () => new Error('RouteService.update(): error update route')
@@ -54,7 +86,7 @@ export class RouteService {
   destroy(routeId: number): Observable<void> {
     return this.http.delete<void>(this.url + '/' + routeId).pipe(
       catchError((problem: any) => {
-        console.error('RouteService.destroy(): error deleting todo');
+        console.error('RouteService.destroy(): error deleting route');
         console.error(problem);
         return throwError(
           () => new Error('RouteService.destroy(): error deleting route')

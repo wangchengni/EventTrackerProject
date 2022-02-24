@@ -1,1 +1,31 @@
-<p>Welcome to Ski Route Web</p>
+<div class="showcase"  >
+  <div class = "container">
+    <h1>Welcome To The Star Mountain</h1>
+    <p class ="lead">This is the place you can add your favorite mountains, lifts and routes</p>
+  </div>
+</div>
+<div class="section-a"  >
+  <div class = "container">
+    <div class="row">
+      <div class = "col-md-4" id ="mountain-image" >
+        <h3>
+           <a class="route-link" aria-current="page" [routerLink]="['/peak']">Peak</a>
+        </h3>
+        <p class ="lead">Leave your favorite peaks here </p>
+      </div>
+      <div class = "col-md-4" id ="lift-image">
+        <h3>
+          <a class="route-link" aria-current="page" [routerLink]="['/lift']">Lift</a>
+        </h3>
+        <p class ="lead">Everyday lifts you will choose</p>
+      </div>
+      <div class = "col-md-4" id="route-image">
+        <h3>
+        <a class="route-link" aria-current="page" [routerLink]="['/route']">Route</a>
+         </h3>
+        <p class ="lead">Routes you love</p>
+      </div>
+    </div>
+  </div>
+</div>
+

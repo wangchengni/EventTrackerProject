@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.skiroutes.entities.Lift;
 import com.skilldistillery.skiroutes.entities.Peak;
+import com.skilldistillery.skiroutes.entities.Route;
 import com.skilldistillery.skiroutes.repositories.LiftRepository;
 import com.skilldistillery.skiroutes.repositories.PeakRepository;
 
@@ -29,6 +30,16 @@ public class LiftServiceImpl implements LiftService {
 	public Lift getLiftByID(int id) {
 		// TODO Auto-generated method stub
 		return liftRepo.queryById(id);
+	}
+	
+	@Override
+	public List<Lift> findByPeakId(int id) {
+		// TODO Auto-generated method stub
+		if(! liftRepo.existsById(id)) {
+			return null;
+		}
+		List<Lift> lifts =liftRepo.findByPeak_Id(id); 
+		return lifts;
 	}
 
 	@Override

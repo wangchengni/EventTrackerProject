@@ -1,0 +1,27 @@
+<div *ngIf="selected && !editLift">
+  <label for="id">ID :</label> <p>{{ selected.id }}</p>
+  <label for="name">Name :</label> <p>{{ selected.name }}</p>
+  <label for="distance">RunTime :</label> <p>{{ selected.runTime }} miles</p>
+  <label for="level">Carrier Number :</label> <p>{{ selected.carrierNumber }}</p>
+  <input type="submit" value ="Check Belonging Routes" (click)="getRoutesByLiftId(selected.id)">
+  <div *ngIf= "!show" >
+    <tbody>
+      <tr  *ngFor="let route of routes ">
+        <td class ="td">{{ route.id }}</td>
+        <td><a class = "routeName_CSS" [routerLink]="['/route/', route.id]">{{ route.name }}</a></td>
+      </tr>
+    </tbody>
+  </div>
+  <button (click)="backClicked()">Back</button>
+  <button (click)="setLift()">Edit</button>
+</div>
+
+<div *ngIf="editLift">
+
+  <input type="text" name="name" [(ngModel)]="editLift.name" placeholder="name" class ="form-control">
+  <input type="number" name="carrierNumber" [(ngModel)]="editLift.carrierNumber" placeholder="Carrier Number " class ="form-control">
+  <input type="text" name="runTime" [(ngModel)]="editLift.runTime" placeholder="Run ime" class ="form-control">
+  <button (click)="updateLift(editLift)">Save</button>
+  <button (click)="editLift = null;">Cancel</button>
+
+</div>

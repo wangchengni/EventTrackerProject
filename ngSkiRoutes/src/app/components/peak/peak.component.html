@@ -1,0 +1,39 @@
+<h1>{{ title }}  {{ getNumPeaks() }}</h1>
+<div *ngIf="!selected">
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let peak of peaks ">
+        <td >{{ peak.id }}</td>
+        <!-- <td (click)="displayPeak(peak)">{{ peak.name }}</td> -->
+        <td><a class = "peakName_CSS" [routerLink]="['/peak/', peak.id]">{{ peak.name }}</a></td>
+        <td><button class='btn-danger' (click)="deletePeak(peak.id)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+      <input type="text" name ="name" placeholder="Peak Name" [(ngModel)]="newPeak.name" class ="form-control">
+      <input type="text" name ="elevation" placeholder="Elevation fts" [(ngModel)]="newPeak.elevation" class ="form-control">
+      <input type="submit" value ="Add Peak" (click)="addPeak(newPeak)">
+</div>
+
+<!-- <div *ngIf="selected && !editPeak">
+  <label for="id">ID :</label> <p>{{ selected.id }}</p>
+  <label for="name">Name :</label> <p>{{ selected.name }}</p>
+  <label for="elevation">Elevation :</label> <p>{{ selected.elevation }} </p>
+  <button (click)="displayTable()">Back</button>
+  <button (click)="setPeak()">Edit</button>
+</div>
+
+<div *ngIf="editPeak">
+
+  <input type="text" name="name" [(ngModel)]="editPeak.name" placeholder="name" class ="form-control">
+  <input type="number" name="elevation" [(ngModel)]="editPeak.elevation" placeholder="Elevation fts" class ="form-control">
+  <button (click)="updatePeak(editPeak)">Save</button>
+  <button (click)="editPeak = null;">Cancel</button>
+
+</div> -->

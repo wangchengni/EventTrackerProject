@@ -1,0 +1,26 @@
+
+  <div *ngIf="selected && !editRoute">
+    <label for="id">ID :</label> <p>{{ selected.id }}</p>
+    <label for="name">Name :</label> <p>{{ selected.name }}</p>
+    <label for="distance">Distance :</label> <p>{{ selected.distance }} miles</p>
+    <label for="level">Level :</label> <p>{{ selected.level }}</p>
+    <label for="snowCondition">Snow Condition :</label> <p>{{ selected.snowCondition }}</p>
+    <button (click)="backClicked()">Back</button>
+    <!-- need condition check if the route is from the lift page or the route page -->
+    <!-- <td><a [routerLink]="['/route/']" class="btn" >Back</a></td> -->
+    <button (click)="setRoute()">Edit</button>
+  </div>
+
+  <div *ngIf="editRoute">
+
+    <input type="text" name="name" [(ngModel)]="editRoute.name" placeholder="name" class ="form-control">
+    <input type="number" name="distance" [(ngModel)]="editRoute.distance" placeholder="distance miles" class ="form-control">
+    <input type="text" name="level" [(ngModel)]="editRoute.level" placeholder="Green,Black etc" class ="form-control">
+    <input type="text" name="snowCondition" [(ngModel)]="editRoute.snowCondition"  placeholder="Icy, Groomed etc" class ="form-control">
+    <button (click)="updateRoute(editRoute)">Save</button>
+    <button (click)="editRoute = null;">Cancel</button>
+
+  </div>
+
+
+

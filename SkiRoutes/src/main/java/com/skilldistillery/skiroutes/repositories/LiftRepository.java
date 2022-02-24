@@ -9,5 +9,6 @@ import com.skilldistillery.skiroutes.entities.Lift;
 public interface LiftRepository extends JpaRepository<Lift, Integer> {
 
 	List<Lift> findLiftByNameLike(String name);
+	List<Lift> findByPeak_Id(int peakId);
 	Lift queryById(int id);
 }

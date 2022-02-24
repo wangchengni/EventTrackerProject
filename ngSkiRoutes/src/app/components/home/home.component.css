@@ -1,0 +1,20 @@
+.showcase {
+  background: url(src/assets/home/HomeMountain.jpg) no-repeat 0 -180px;
+  height: 670px;
+  padding: 30px 0;
+}
+/* #lift-image {
+  background: url(src/assets/lift/ski-lift.png) no-repeat 0 -180px;
+  min-height: auto;
+  padding: 30px 0;
+} */
+.section-a {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 30px 0;
+}
+.route-link {
+  font-size: 22px;
+  color: black;
+  text-decoration: none;
+}

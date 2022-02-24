@@ -1,0 +1,24 @@
+  <div *ngIf="selected && !editPeak">
+    <label for="id">ID :</label> <p>{{ selected.id }}</p>
+    <label for="name">Name :</label> <p>{{ selected.name }}</p>
+    <label for="distance">Elevation :</label> <p>{{ selected.elevation }}</p>
+    <input type="submit" value ="Check Belonging Lifts" (click)="getLiftsByPeakId(selected.id)">
+    <div *ngIf= "!show" >
+      <tbody>
+        <tr  *ngFor="let lift of lifts ">
+          <td class ="td">{{ lift.id }}</td>
+          <td><a class = "liftName_CSS" [routerLink]="['/lift/', lift.id]">{{ lift.name }}</a></td>
+        </tr>
+      </tbody>
+    </div>
+    <button (click)="backClicked()">Back</button>    <!-- <td><a [routerLink]="['/route/']" class="btn" >Back</a></td> -->
+    <button (click)="setPeak()">Edit</button>
+  </div>
+
+  <div *ngIf="editPeak">
+
+    <input type="text" name="name" [(ngModel)]="editPeak.name" placeholder="name" class ="form-control">
+    <input type="text" name="distance" [(ngModel)]="editPeak.elevation" placeholder="elevation fts" class ="form-control">
+    <button (click)="updatePeak(editPeak)">Save</button>
+    <button (click)="editPeak = null;">Cancel</button>
+  </div>

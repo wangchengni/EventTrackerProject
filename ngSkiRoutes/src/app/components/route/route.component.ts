@@ -1,7 +1,8 @@
-import { RouteService } from './../../services/route.service';
-import { Component, OnInit } from '@angular/core';
-import { Route } from 'src/app/models/route';
+import { Component, Input, OnInit } from '@angular/core';
+import { Route } from 'src/app/models/route/route';
 import { Router } from '@angular/router';
+import { RouteService } from 'src/app/services/route/route.service';
+import { Lift } from 'src/app/models/lift/lift';
 
 @Component({
   selector: 'app-route',
@@ -10,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class RouteComponent implements OnInit {
   title = 'RoutesNum';
-  routes: Route[] = [];
+  // routes: Route[] = [];
+
+  @Input() routes: Route[] = [];
+  @Input() lift: Lift = new Lift();
   selected: Route | null = null;
   newRoute: Route = new Route();
   editRoute: Route | null = null;
@@ -29,6 +33,17 @@ export class RouteComponent implements OnInit {
       },
       error: (err) => {
         console.error('RouteComponent(): Error retireving Routes');
+        console.error(err);
+      },
+    });
+  }
+  getRoutesByLiftId(liftId: number) {
+    this.routeSev.GetByLiftId(liftId).subscribe({
+      next: (selectedRoutes) => {
+        this.routes = selectedRoutes;
+      },
+      error: (err) => {
+        console.error('LiftComponent(): Error retireving lifts');
         console.error(err);
       },
     });
@@ -60,7 +75,7 @@ export class RouteComponent implements OnInit {
       },
     });
   }
-  
+
   setRoute() {
     this.editRoute = Object.assign({}, this.selected);
   }
